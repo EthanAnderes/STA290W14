@@ -251,7 +251,7 @@ Y = X \beta + Z
 \]
 where $X$ is the design matrix with $p$ columns  and $\beta$ is a $p$ dimensional coefficient vector of unknowns and $Z\sim \mathcal N(0,\sigma^2 I)$. This is indeed equivalent to our basic linear model
 \[Y = \mu + Z \]
-where now $\mu$ is assumed to be in the linear space $M:= \{ \beta_1 x_1+\cdots \beta_p x_p:\beta_k\in \Bbb R\}$ where $x_k$ is the $k^\text{th}$ column of $X$. 
+where now $\mu$ is assumed to be in the linear space $M:= \{ \beta_1 x_1+\cdots \beta_p x_p:\beta_k\in \mathbb R\}$ where $x_k$ is the $k^\text{th}$ column of $X$. 
 
 To reconcile the OLS estimate  $\hat\beta = (X^tX)^{-1}X^t Y$ and the Gauss-Markov estimate $\hat\mu = P_M Y$ simply notice that the OLS estimate of $\mu$ is simply $X\hat \beta = X(X^tX)^{-1}X^t Y$ which is the same as $P_M Y$. In particular, $X(X^tX)^{-1}X^t$ is the coordinate-matrix form of $P_M$. This is easy to see when one adds the additional assumption that the columns of $X$ are orthonormal. In this case we know $X^tX = I$ and from Claim \ref{proj1} we know how to do the projection:
 \begin{align*}
@@ -302,14 +302,14 @@ Now it's clear that the MLE estimates $\hat\mu_{M_0}$ and $ \hat\mu_{M_1}$ just 
 The interesting thing is that the distribution $\chi^2_{d_1 - d_1}$ persists as an approximation for $2\Delta \ell(\hat\mu|Y)$  under much greater generality. The conditions for this approximation  are, loosely, that the the statistical model has the local asymptotic normality property (LAN for short), the signal-to-noise ratio of the observations goes to infinity, and the two models $M_0$ and $M_1$ are locally linear with local dimension $d_0$ and $d_1$ respectively. If one doesn't have the local linear property of $M_0$, say, then the asymptotic distribution can be a mixture of chi-square random variables.
 To see why this is true we start with a small extension of the classic linear model
 \[ Y= \mu + {\sigma} Z \]
-where now $ M_0\subset M_1$ are  only assumed locally linear  with local dimension $d_0$ and $d_1$ respectively (let suppose the embedded space $V$ is still a linear vector space). We will analyze  $2\Delta \ell(Y|\hat\mu)$  in the case that $\sigma\rightarrow 0$  to model the situation where the signal-to-noise of the observations goes to infinity.  A good example to keep in mind is  the case where  $V=\Bbb R^5$, $M_1=\Bbb R^3$ and $M_0$ is the two dimensional sphere embedded in $M_1$. 
+where now $ M_0\subset M_1$ are  only assumed locally linear  with local dimension $d_0$ and $d_1$ respectively (let suppose the embedded space $V$ is still a linear vector space). We will analyze  $2\Delta \ell(Y|\hat\mu)$  in the case that $\sigma\rightarrow 0$  to model the situation where the signal-to-noise of the observations goes to infinity.  A good example to keep in mind is  the case where  $V=\mathbb R^5$, $M_1=\mathbb R^3$ and $M_0$ is the two dimensional sphere embedded in $M_1$. 
 
 To analyze the asymptotic distribution of $2\Delta \ell(Y|\hat\mu)$ in this case suppose the true $\mu$ is in  $ M_0$.
 Notice that we are still free to set down a orthonormal basis of $V$
 \[\phi_1,\ldots, \phi_{d_0},\,\, \psi_{1},\ldots, \psi_{d_1 - d_0},\,\, \xi_1,\ldots \xi_{d_1 - d}\]
 but we do so in such a way that ${\phi_k}$ spans the local linear approximation of $M_0$ around the true $\mu$, and similarly that ${\phi_k, \psi_j}$ spans the local linear approximation of $M_1$ around the true $\mu$.
 Now as $\sigma\rightarrow 0$, the $Y$ gets closer to $\mu$ and the local linear approximation of $M_0$ and $M_1$ becomes accurate. In this case, the estimates
-\[ \text{$\hat\mu_{\tiny M_0}\approx P_{L_\mu M_0} Y$ and $\hat\mu_{\tiny M_1}\approx P_{L_\mu M_1} Y$}\]
+\[ \text{$\hat\mu_{ M_0}\approx P_{L_\mu M_0} Y$ and $\hat\mu_{ M_1}\approx P_{L_\mu M_1} Y$}\]
  where $L_\mu M_0$ and $L_\mu M_1$ denote the local linear approximations at $\mu$. Therefore
 \begin{align*}
 2\Delta \ell(Y|\hat\mu) 
@@ -319,12 +319,12 @@ Now as $\sigma\rightarrow 0$, the $Y$ gets closer to $\mu$ and the local linear 
 \end{align*}
 
 
-It now becomes clear what happens when the local linear approximation doesn't hold. For example suppose $V=\Bbb R^5$, $M_1=\Bbb R^3$ and $M_0=\{ \|v\|_p=1: v\in V\}$ where $p<1$. In this case $M_0$ has a kink at the each axis. Suppose the true $\mu$ is at the tip of one of those kinks. Then as $\sigma^2\rightarrow 0$, the $Y$ gets closer to $\mu$ and the resulting estimate $\hat\mu_{M_0}$ starts to behave like the projection of $Y$ onto a half line. This makes the term $\frac{1}{\sigma^2} \|Y - P_{M_0}Y \|^2$ in $2\Delta \ell(Y|\hat\mu) $ behave like a mixture of chi-squares depending on if the projection of $Y$ lands on the tip of the half line or to the interior of the half line. 
+It now becomes clear what happens when the local linear approximation doesn't hold. For example suppose $V=\mathbb R^5$, $M_1=\mathbb R^3$ and $M_0=\{ \|v\|_p=1: v\in V\}$ where $p<1$. In this case $M_0$ has a kink at the each axis. Suppose the true $\mu$ is at the tip of one of those kinks. Then as $\sigma^2\rightarrow 0$, the $Y$ gets closer to $\mu$ and the resulting estimate $\hat\mu_{M_0}$ starts to behave like the projection of $Y$ onto a half line. This makes the term $\frac{1}{\sigma^2} \|Y - P_{M_0}Y \|^2$ in $2\Delta \ell(Y|\hat\mu) $ behave like a mixture of chi-squares depending on if the projection of $Y$ lands on the tip of the half line or to the interior of the half line. 
 
 Finally, what happens when one doesn't have the nice classical linear model $Y = \mu + \sigma Z$? In this case we observe data, in the form of a vector of observations $Y$, and we have access only to a log-likelihood surface $\ell(Y|\mu)$. The local asymptotic normality condition essentially says that the MLE $\hat\mu$ (computed under model $M_1$) has the distribution $\hat\mu \sim \mathcal N(\mu, F^{-1}/n)$ where $F$ is something like the expected Hessian $\ell$ with one data point. The idea is that, in this case, the likelihood surface of the whole data set $\ell(Y|\mu)$ is well approximated by the likelihood surface of $\hat\mu$ under the model $\hat\mu \sim \mathcal N(\mu, F^{-1}/n)$. This suggested that we can make a new ``data vector'' $Y_{new} = F^{1/2}\hat\mu$ where $Y_{new}= \theta + Z$ and $Z\sim \mathcal N(0, n^{-1}I)$. This is the exact situation we were in earlier, with the signal to noise going to infinity, and the chi-square results still hold.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Gaussian $E(X_0|X_1,\ldots, X_n)$ as projection}
+\section{Gaussian \texorpdfstring{$E(X_0|X_1,\ldots, X_n)$} as projection}
 
 
 Most of what we have done with our abstract vector space results could have been don't just as easy (albeit a bit more messy) with coordinates. This hides the true power and generality of the abstract projection results. In this section we analyze projection of random variables which have no natural coordinate vector representation. In particular we show that Gaussian conditional expectation is simply linear projection onto the linear span of the observations. 
@@ -334,11 +334,11 @@ To derive the conditional distribution $X_0|X_1,\ldots, X_n$ notice first
 \[
 {E(X_0|X_1,\ldots, X_n) = a_1 X_1 + \cdots a_n X_n,\text{ for some constants $a_k$.}}
 \]
-In particular if we let $M$ denote the linear vector space $\{a_1 X_1 + \cdots a_n X_n: a_k\in\Bbb R\}$ then $E(X_0|X_1,\ldots, X_n)\in M$. The second fact is that  $E(X_0|X_1,\ldots, X_n)$ minimizes the mean square distance to $X_0$. 
+In particular if we let $M$ denote the linear vector space $\{a_1 X_1 + \cdots a_n X_n: a_k\in\mathbb R\}$ then $E(X_0|X_1,\ldots, X_n)\in M$. The second fact is that  $E(X_0|X_1,\ldots, X_n)$ minimizes the mean square distance to $X_0$. 
 \begin{equation}\label{condexp1}
 {E(X_0|X_1,\ldots, X_n) = \text{arg}\min_{X \in M} E(X_0 - X)^2. }
 \end{equation}
- This establishes that $E(X_0|X_1,\ldots, X_n)$ is a projection. To be specific, let $V=\{a_0 X_0 + \cdots a_n X_n: a_k\in\Bbb R\}$ be the full set of linear combinations of $X_0,X_1,\ldots, X_n$. This is obviously a linear space of random variables. To make $V$ an abstract vector space we need an inner product for elements of $V$. The natural inner product is given by covariance:
+ This establishes that $E(X_0|X_1,\ldots, X_n)$ is a projection. To be specific, let $V=\{a_0 X_0 + \cdots a_n X_n: a_k\in\mathbb R\}$ be the full set of linear combinations of $X_0,X_1,\ldots, X_n$. This is obviously a linear space of random variables. To make $V$ an abstract vector space we need an inner product for elements of $V$. The natural inner product is given by covariance:
 \[ \text{For any $X,Y\in V$ define $\langle X,Y\rangle :=\text{cov}(X,Y)$.}  \]
 Notice that the norm $\| X\|$ gives the standard deviation of $X$. Using this inner product structure it is clear that equation (\ref{condexp1}) gives
 \begin{equation}
@@ -403,9 +403,137 @@ Also,
 & = \Sigma_{00} -  \Sigma_{0n}\Sigma_{nn}^{-1}\Sigma_{n0}
 \end{align*}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fubini}
+
+
+
+
+\underline{{\bf {Motivation:}}}  \\
+
+In a room of people some pairs shake hands and some don't. No two people shake hands more than once and nobody shakes her own hand. Given a person $p$, $n(p)$ is the number of hands $p$ shook. If the total number of hand shakes is $H$, then
+\begin{equation}
+\sum_pn(p)=2H \nonumber
+\end{equation}
+
+\bigskip
+
+Given a person $p$ and hand shake $h$, define $\mathbb{I}_{ph}=1$ if person $p$ participated in handshake $h$, and it is zero otherwise. Then note that $n(p)=\sum_h\mathbb{I}_{ph}$
+\begin{equation}
+\sum_pn(p)=\sum_p\sum_h\mathbb{I}_{ph}=\sum_h\sum_p\mathbb{I}_{ph}=\sum_h2=2H \nonumber
+\end{equation}
+
+!!! If 5 people in a room each claim to have shaken 3 hands, then someone is lying. (15 is not an even number)
+
+\bigskip
+
+\bigskip
+
+\underline{{\bf {FUBINI: (Infinite Sums)}}}  \\
+
+If $\sum_{j,k}|a_{jk}|<\infty$, then $\sum_{j,k}a_{jk}$ exists and 
+\begin{equation}
+\sum_{j,k}a_{jk}=\sum_j\sum_ka_{jk}=\sum_k\sum_ja_{jk}\nonumber
+\end{equation}
+
+Consider  $a_{jk}=a^+_{jk}-a^-_{jk}$, Then Fubini theorem holds if one of the below holds
+\begin{itemize}
+\item$\sum_j\sum_ka^+_{jk}<\infty$
+\item$\sum_j\sum_ka^-_{jk}<\infty$
+\item$\sum_k\sum_ja^+_{jk}<\infty$
+\item$\sum_k\sum_ja^-_{jk}<\infty$
+\end{itemize}
+
+\bigskip
+
+\underline{{\bf {Example}}}  \\
+
+Consider $a_{ij}$ as follows 
+
+\bigskip
+\begin{center}
+\begin{tabular}{|r|rrrrr|}
+\hline
+ $i/j$&1&2&3&4&5\\
+\hline
+1&1&-1& 0&0&0 \\
+2& 0&1&-1 &0&0\\
+3& 0& 0&1&-1&0\\
+4&0& 0& 0&1&-1\\
+\vdots& \vdots&\vdots &\vdots &\vdots&\vdots \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\begin{equation}
+a_{jk}= \left\{ \begin{array}{rll}
+1 & ,
+& j=k \\ -1 & , & j=k+1 \\
+0 & , & \mbox{o'wise}
+\end{array}\right.\nonumber
+\end{equation}
+Note that $\sum_ja_{jk}=0$, hence $\sum_k\left(\sum_ja_{jk}\right)=0$. However, if $j \geq 2$ $\sum_ka_{jk}=0$ and when $j=1$  $\sum_ka_{jk}=1$, hence $\sum_j\left(\sum_ka_{jk}\right)=1$. Thus, here  Fubini FAILS
+\begin{equation}
+0=\sum_k\sum_ja_{jk}\neq \sum_j\sum_ka_{jk}=1\nonumber
+\end{equation}
+Here in this example $\sum_k\sum_ja^+_{jk}=\infty$ and $\sum_k\sum_ja^-_{jk}=\infty$, thus $\sum_k\sum_ja_{jk}=\sum_k\sum_ja^+_{jk}-\sum_k\sum_ja^-_{jk}=\infty-\infty$  (Undefined). That is the main condition to swap the sums do not hold, i.e., $\sum_k\sum_j|a_{jk}|<\infty$
+
+\bigskip
+
+\underline{{\bf {Example}}}  \\
+
+Let $A_1,A_2,...$ be sequence of events, define $N=\sum_{i=1}^{\infty}\mathbb{I}_{A_i}$. 
+
+\begin{equation}
+\mathbb{E}N=\mathbb{E}\left(\sum_{i=1}^{\infty}\mathbb{I}_{A_i}\right)=\sum_{i=1}^{\infty}\mathbb{E}\mathbb{I}_{A_i}=\sum_{i=1}^{\infty}P(A_i)\nonumber
+\end{equation}
+
+The reason we were able to swap the Expectation and the sum is that it satisfies the Fubini criteria, i.e., 
+\begin{equation}
+\sum_{i=1}^{\infty}P(A_i)<\infty \rightarrow\quad \mathbb{E}N<\infty \rightarrow\quad P(N=\infty)=0 \rightarrow \quad P(A_i's \text{  happening i.o})=0 \nonumber
+\end{equation}
+
+Which is the first Cantelli Lemma.
+
+\bigskip
+
+
+\underline{{\bf {Original Fubini Theorem:}}}  \\
+
+Let $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\nu)$ be two complete $\sigma$-finite measure spaces. Suppose f is integrable on $(X\times Y)$, then
+
+\begin{equation}
+\begin{aligned}
+(i)&\int_Yf(x,y)d\nu(y)\text{ is integrable on X}\\
+(ii)&\int_Xf(x,y)d\mu(y)\text{ is integrable on Y}\\
+(iii)& \int_X\int_Yf(x,y)d\nu d\mu=\int_{X\times Y}f(x,y)d (\mu \otimes \nu)=\int_Y\int_Xf(x,y)d\mu d\nu
+\end{aligned}
+\end{equation}
+
+\bigskip
+
+
+To apply Fubini, it requires that f is integrable on $X \times Y$
+
+\begin{equation}
+\begin{aligned}
+(i)&\int_Y\left(\int_X|f| d\mu \right)d\nu(y)<\infty\\
+(ii)&\int_X\left(\int_Y|f| d\nu \right)d\mu(y)<\infty\\
+(iii)& \int_{X\times Y}|f| d(\mu \otimes \nu) <\infty
+\end{aligned}
+\end{equation}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \chapter{Ideas Involving Bayesian Risk}
 
