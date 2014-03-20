@@ -12,19 +12,6 @@
 \usepackage{subfigure}
 \usepackage{hyperref}
 
-% \documentclass[a4paper, 11pt]{report}
-
-% \usepackage{
-% 	amssymb, 
-% 	amsmath
-% }
-
-% \usepackage[paperwidth=8.5in,paperheight=11.0in,
-%   left=1.0in,right=1.0in,top=1.0in,bottom=1.0in,
-%   includefoot,heightrounded]{geometry}
-
-
-
 \newtheorem{claim}{Claim}
 \newtheorem{corollary}{Corollary}
 \newtheorem{proposition}{Proposition}
@@ -660,7 +647,97 @@ r\left(\pi, \widehat{\lambda}\right)
 where we used 
 $$\mathbb{E}_{\lambda|x}\left(\lambda\right) = \frac{(\alpha +x)\beta}{\beta+1} = \frac{(\alpha +x - 1)\beta}{\beta+1} + \frac{\beta}{\beta+1} = \widehat{\lambda} + \frac{\beta}{\beta+1},\text{ and } \mathbb{E}_{\lambda|x}\left(\frac{1}{\lambda}\right) = \frac{1}{\widehat{\lambda}}. $$
 
+\chapter{Sufficient, Complete, and UMVU Estimators}
+This problem comes from the Fall 2009 pre-qual. 
+\emph{
+Let $\underline{X} = (X_1, \dots, X_n)^T$ from Uniform$(\theta_1-\theta_2, \theta_1+\theta_2)$ where $\theta_1 \in \mathcal{R}$ and $\theta_2 > 0$ are unknown. Consider estimating $\theta_1, \theta_2$. }
+\newline
+(a) Show $T(\underline{X}) = (X_{(1)}, X_{(n)})$ is sufficient and complete.
 
+\textbf{Sufficiency:} Using the Fisher-Neyman Factorization,
+\begin{align*}
+f(\underline{X}) &= \prod_{i=1}^n f(x_i) = 
+ = \left( \frac{1}{(\theta_1+\theta_2) - (\theta_1-\theta_2)} \right)^n
+\cdot \prod \mathbf{1}(x_i > \theta_1-\theta_2) \cdot \mathbf{1}( x_i < \theta_1+\theta_2) ) \\
+&= \left( \frac{1}{2 \theta_2} \right)^n \mathbf{1}( { X_{(1)} > \theta_1-\theta_2}) \cdot \mathbf{1}( X_{(n)} < \theta_1 + \theta_2)
+\end{align*}
+Noting $h(X) = 1$ and $g(\mathbf{\theta}, T(\underline{X})$ is everything else, we see we can split the joint pdf into a piece that depends only on data, and a piece where the random variable only interacts with the parameters through the sufficient statistics, $T(\underline{X}) = (X_{(1)}, X_{(n)})$. 
+
+\textbf{Completeness:} Recall that a statistic is complete iff 
+\[ E_\theta(g(T(\underline{X}))) = 0, \;\; \forall \theta\ \Rightarrow\  g(T(\underline{X})) = 0 \text{ a.s.} \]
+
+For simplicity, we do a change of variables and work with a $Z$ and $W$, where $Z = X_{(n)} - X_{(1)}$ and $W = X_{(n)}$.
+ The joint pdf of the min and max is given by
+\[ f_{min, max} (X_{(1)}, X_{(n)}) = \frac{n \cdot (n-1) (X_{(n)} - X_{(1)})^{n-2}}{\left( 2 \theta_2 \right)^n} \]
+So our transformation will have pdf
+\[ f_{Z, W} (z, w) = J \cdot \frac{n \cdot (n-1) (z)^{n-2}}{\left( 2 \theta_2 \right)^n} \]
+where $J$ is going to be a constant, dependent on $\theta_1$ and $\theta_2$ (the determinant of the Jacobean), but that will not be needed for showing completeness.
+
+\begin{align*}
+E_\theta(g(z,w)) &\propto \int_0^{2 \theta_2} \int_{\theta_1-\theta_2}^{\infty} \frac{n \cdot (n-1)}{\left( 2 \theta_2 \right)^n } \cdot z^{n-2} g(z, w) dw dz = 0
+\end{align*}
+This integral then defines the Borel sigma field over $[0, \infty) \times (-\infty, \infty)$. Since the integral is zero by assumption, this is enough to imply that $\frac{n \cdot (n-1)}{\left( 2 \theta_2 \right)^n } \cdot z^{n-2} g(z, w) = 0$ almost surely. Since the pdf of $z$,$w$ is positive on the support, this implies that $g(z, w) = 0$ almost surely.
+\newline
+\newline
+\emph{Show that 
+\[ E(X_{(1)}) = \theta_1 - \theta_2 + \frac{2 \theta_2}{n+1} \] and 
+\[ E(X_{(n)}) = \theta_1 + \theta_2 - \frac{2 \theta_2}{n+1} \] }
+It can be shown that
+\[ f(X_{(1)}) = \frac{n}{ 2 \theta_2 } \left( 1 - \frac{X_{(1)} - (\theta_1-\theta_2)}{2 \theta_2} \right)^{n-1} \]
+\[ f(X_{(n)}) = \frac{n}{\left( 2 \theta_2 \right)^n} \left( X_{(n)} - (\theta_1 - \theta_2) \right)^{n-1} \]
+
+\begin{align*}
+E(X_{(1)}) &= \int_{\theta_1 - \theta_2}^{\theta_1 + \theta_2} \frac{nx}{2 \theta_2} \left( 1-\frac{x-(\theta_1 - \theta_2)}{2 \theta_2} \right)^{n-1} dx \\
+	&= \left[ -x\left( 1 - \frac{x - (\theta_1-\theta_2)}{2 \theta_2} \right)^n \right]_{\theta_1 -\theta_2}^{\theta_1 + \theta_2} + \int_{\theta_1 - \theta_2}^{\theta_1 + \theta_2} \left( 1-\frac{x-(\theta_1 - \theta_2)}{2 \theta_2} \right)^{n} dx \\
+	&= \theta_1 - \theta_2 - \frac{2 \theta_2}{n+1} \left[ \left( 1 - \frac{x - (\theta_1-\theta_2)}{2 \theta_2} \right)^{n+1} \right]_{\theta_1 -\theta_2}^{\theta_1 + \theta_2} \\
+	&= \theta_1 - \theta_2 + \frac{2 \theta_2}{n+1} \\
+%
+E(X_{(n)}) &= \int_{\theta_1 - \theta_2}^{\theta_1 + \theta_2} \frac{nx}{2 \theta_2} \left( \frac{x-(\theta_1 - \theta_2)}{2 \theta_2} \right)^{n-1} dx \\
+	&= \left[ x\left( \frac{x - (\theta_1-\theta_2)}{2 \theta_2} \right)^n \right]_{\theta_1 -\theta_2}^{\theta_1 + \theta_2} - \int_{\theta_1 - \theta_2}^{\theta_1 + \theta_2} \left( \frac{x-(\theta_1 - \theta_2)}{2 \theta_2} \right)^{n} dx \\
+	&= \theta_1 + \theta_2 - \frac{2 \theta_2}{n+1} \left[ \left( \frac{x - (\theta_1-\theta_2)}{2 \theta_2} \right)^{n+1} \right]_{\theta_1 -\theta_2}^{\theta_1 + \theta_2} \\
+	&= \theta_1 + \theta_2 - \frac{2 \theta_2}{n+1}
+\end{align*}
+\newline
+\newline
+\emph{Find the UMVUE for $\theta_1$ and $\theta_2$.}
+
+Find, we find unbiased estimators for $\theta_1$ and $\theta_2$ using the sample min and max.
+\[ E( X_{(1)} + X_{(n)} ) = \left( \theta_1 - \theta_2 + \frac{2 \theta_2}{n+1} \right) + \left( \theta_1 + \theta_2 - \frac{2 \theta_2}{n+1} \right) = 2 \theta_1 \]
+\[ \Rightarrow E \left[ \frac{( X_{(1)} + X_{(n)} )}{2} \right] = \theta_1 \]
+\[ E( X_{(n)} - X_{(1)} ) = \left( \theta_1 + \theta_2 - \frac{2 \theta_2}{n+1} \right) - \left( \theta_1 - \theta_2 + \frac{2 \theta_2}{n+1} \right) = 2 \theta_2 - \frac{4 \theta_2}{n+1} \]
+\[ \Rightarrow E \left[ \frac{ (n+1) \left( X_{(n)} - X_{(1)} \right) }{2n-2} \right] = \theta_2 \]
+
+Since they depend only on sufficient and complete statistics, the Lehmann-Scheff\'{e} Theorem tells us that the two estimators are UMVUE for $\theta_1, \theta_2$.
+
+\chapter{Central Limit Theorem and Multivariate Delta Method}
+1. Show that if $X_1,\cdots,X_n$ are i.i.d $N(\mu,\sigma^2)$, then
+\[\sqrt{n}(\bar{X}-\mu,\hat{\sigma^2}-\sigma^2) \rightarrow_D N(0,0,\Sigma_0) \]
+Where $\Sigma_0=diag(\sigma^2,2\sigma^4)$, $\hat{\sigma^2}=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2$.
+
+First Consider the limit distribution of $(\bar{X},\frac{1}{n}\sum_{i=1}^{n}X_i^2)$, by CLT
+
+\[\sqrt{n}(\bar{X}-\mu,\frac{1}{n}\sum_{i=1}^{n}X_i^2-(\mu^2+\sigma^2))\rightarrow_D N(0,0,\Sigma)\] where $\Sigma$ is the covariance of $(X_i,X_i^2)$.
+
+Actually $T=(X_i,X_i^2)$ is the sufficient statistics of normal distribution, so we could use properties of exponential family to obtain the covariance matrix of $T$.
+
+Write the normal distribution as a canonical form of exponential family:
+\[f(x|\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}}\exp\{\frac{\mu x}{\sigma^2}-\frac{x^2}{2\sigma^2}-\frac{\mu^2}{2\sigma^2}-\frac{1}{2}\log(\sigma^2)\}=\frac{1}{\sqrt{2\pi}}\exp(\eta_1 x+\eta_2x^2-A(\eta))\]
+
+where $\eta_1=\frac{\mu}{\sigma^2}$, $\eta_2=- \frac{1}{2\sigma^2}$, $A(\eta)=-\frac{\eta_1^2}{4\eta_2}-\frac{1}{2}\log(-2\eta_2)$.
+
+\[\Sigma=\ddot{A}(\eta)=\left(\begin{array}{c c}
+-\frac{1}{2\eta_2} & \frac{\eta_1}{2\eta_2^2}\\
+\frac{\eta_1}{2\eta_2^2} & -\frac{\eta_1^2}{2\eta_2^3}+\frac{1}{2\eta_2^2}\\
+\end{array}
+\right)=\left(
+\begin{array}{cc}
+\sigma^2 & 2\mu\sigma^2\\
+2\mu\sigma^2 & 4\sigma^2\mu^2+2\sigma^4
+
+\end{array}\right)\]
+
+Last we apply multivariate delta method to $T$ with $(\bar{X},\hat{\sigma}^2)=h(T)=(T_1,T_2-T_1^2)$, we get $\sqrt{n}(\bar{X}-\mu,\hat{\sigma}^2-\sigma^2)\rightarrow_D N(0,0,\Sigma_0)$,  $\Sigma_0=\nabla h \Sigma \nabla h^T = diag(\sigma^2,2\sigma^4)$.
+Again we see the independence of sample mean and sample covariance.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
