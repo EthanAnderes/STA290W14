@@ -17,6 +17,7 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\bs}{\boldsymbol}
@@ -396,54 +397,33 @@ Also,
 \chapter{Fubini}
 
 
+In this chapter we explore a very general notion of Fubini applied to infinite sums. Suppose $a_{kj}$ is an infinite array indexed by $k$ and $j$ then the doulbe sum $\sum_{k,j} a_{kj}$ is defined as 
+\[ \sum_{k,j} a_{kj}: = \sum_{k,j} a_{kj}^+ - \sum_{k,j} a_{kj}^-\]
+where
+\[\sum_{k,j} a_{kj}^{\pm} := \sup \left\{ \sum_{(k,j)\in I}a_{kj}^{\pm} : \text{$I$ is a finite subset of $\Bbb N\times \Bbb N$} \right\}. \]
+Notice that $\sum_{k,j} a_{kj}$ is only well defined when either $\sum_{k,j} a_{kj}^+< \infty$ or $\sum_{k,j} a_{kj}^-<\infty$ but the least upper bound properties of the reals tells us that $\sum_{k,j} a_{kj}^{\pm}$ is always defined. The followign theorem tells us when the double sum is defined and when it is equal to the iterated sums.
 
-
-\underline{{\bf {Motivation:}}}  \\
-
-In a room of people some pairs shake hands and some don't. No two people shake hands more than once and nobody shakes her own hand. Given a person $p$, $n(p)$ is the number of hands $p$ shook. If the total number of hand shakes is $H$, then
-\begin{equation}
-\sum_pn(p)=2H \nonumber
-\end{equation}
-
-\bigskip
-
-Given a person $p$ and hand shake $h$, define $\mathbb{I}_{ph}=1$ if person $p$ participated in handshake $h$, and it is zero otherwise. Then note that $n(p)=\sum_h\mathbb{I}_{ph}$
-\begin{equation}
-\sum_pn(p)=\sum_p\sum_h\mathbb{I}_{ph}=\sum_h\sum_p\mathbb{I}_{ph}=\sum_h2=2H \nonumber
-\end{equation}
-
-!!! If 5 people in a room each claim to have shaken 3 hands, then someone is lying. (15 is not an even number)
-
-\bigskip
-
-\bigskip
-
-\underline{{\bf {FUBINI: (Infinite Sums)}}}  \\
-
-If $\sum_{j,k}|a_{jk}|<\infty$, then $\sum_{j,k}a_{jk}$ exists and 
-\begin{equation}
-\sum_{j,k}a_{jk}=\sum_j\sum_ka_{jk}=\sum_k\sum_ja_{jk}\nonumber
-\end{equation}
-
-Consider  $a_{jk}=a^+_{jk}-a^-_{jk}$, Then Fubini theorem holds if one of the below holds
+\begin{claim}[{\bf Fubini}]
+If any one of the following is true:
 \begin{itemize}
-\item$\sum_j\sum_ka^+_{jk}<\infty$
-\item$\sum_j\sum_ka^-_{jk}<\infty$
-\item$\sum_k\sum_ja^+_{jk}<\infty$
-\item$\sum_k\sum_ja^-_{jk}<\infty$
+\item $\sum_j\sum_ka^+_{kj}<\infty$;
+\item $\sum_j\sum_ka^-_{kj}<\infty$;
+\item  $\sum_k\sum_ja^+_{kj}<\infty$;
+\item  $\sum_k\sum_ja^-_{kj}<\infty$,
 \end{itemize}
+then $\sum_{j,k}a_{kj}$ is well defined and 
+\begin{equation}
+\sum_{j,k}a_{kj}=\sum_j\sum_ka_{kj}=\sum_k\sum_ja_{kj}.\nonumber
+\end{equation}
+\end{claim}
 
-\bigskip
-
-\underline{{\bf {Example}}}  \\
-
-Consider $a_{ij}$ as follows 
-
-\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+Consider $a_{kj}$ as
 \begin{center}
 \begin{tabular}{|r|rrrrr|}
 \hline
- $i/j$&1&2&3&4&5\\
+ $k\backslash j$&1&2&3&4&5\\
 \hline
 1&1&-1& 0&0&0 \\
 2& 0&1&-1 &0&0\\
@@ -453,25 +433,71 @@ Consider $a_{ij}$ as follows
 \hline
 \end{tabular}
 \end{center}
+For this example
+\begin{align*}
+\sum_{k,j}a_{kj} &= \text{not defined} \\
+\sum_k\sum_j a_{kj} &= 0 \\
+\sum_j\sum_k a_{kj} &= 1
+\end{align*}
+\end{example}
 
 
-\begin{equation}
-a_{jk}= \left\{ \begin{array}{rll}
-1 & ,
-& j=k \\ -1 & , & j=k+1 \\
-0 & , & \mbox{o'wise}
-\end{array}\right.\nonumber
-\end{equation}
-Note that $\sum_ja_{jk}=0$, hence $\sum_k\left(\sum_ja_{jk}\right)=0$. However, if $j \geq 2$ $\sum_ka_{jk}=0$ and when $j=1$  $\sum_ka_{jk}=1$, hence $\sum_j\left(\sum_ka_{jk}\right)=1$. Thus, here  Fubini FAILS
-\begin{equation}
-0=\sum_k\sum_ja_{jk}\neq \sum_j\sum_ka_{jk}=1\nonumber
-\end{equation}
-Here in this example $\sum_k\sum_ja^+_{jk}=\infty$ and $\sum_k\sum_ja^-_{jk}=\infty$, thus $\sum_k\sum_ja_{jk}=\sum_k\sum_ja^+_{jk}-\sum_k\sum_ja^-_{jk}=\infty-\infty$  (Undefined). That is the main condition to swap the sums do not hold, i.e., $\sum_k\sum_j|a_{jk}|<\infty$
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+Consider $a_{kj}$ as
+\begin{center}
+\begin{tabular}{|r|rrrrr|}
+\hline
+ $k\backslash j$&1&2&3&4&5\\
+\hline
+1 & 1 &  0 &  0 &   0 &  0 \\
+2 & 1 & -1 &  0 &   0 &  0 \\
+3 & 1 & -1 &  1 &   0 &  0 \\
+4 & 1 & -1 &  1 &  -1 &  0 \\
+5 & 1 & -1 &  1 &  -1 &  1 \\
+\vdots& \vdots&\vdots &\vdots &\vdots&\vdots \\
+\hline
+\end{tabular}
+\end{center}
+For this example
+\begin{align*}
+\sum_{k,j}a_{kj} &= \text{not defined} \\
+\sum_k\sum_j a_{kj} &=  \infty \\
+\sum_j\sum_k a_{kj} &= \text{not defined}
+\end{align*}
+\end{example}
 
-\bigskip
 
-\underline{{\bf {Example}}}  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+Consider $a_{kj}$ as
+\begin{center}
+\begin{tabular}{|r|rrrrrr|}
+\hline
+ $k\backslash j$&1&2&3&4&5\\
+\hline
+1 & 1 & -1 &  0 &   0 &  0 & 0 \\
+2 &-1 &  1 &  0 &   0 &  0 & 0 \\
+3 & 0 &  0 &  1 &  -1 &  0 & 0 \\
+4 & 0 &  0 & -1 &   1 &  0 & 0 \\
+5 & 0 &  0 &  0 &   0 &  1 &-1 \\
+6 & 0 &  0 &  0 &   0 & -1 & 1 \\
+\vdots& \vdots&\vdots &\vdots &\vdots&\vdots \\
+\hline
+\end{tabular}
+\end{center}
+For this example
+\begin{align*}
+\sum_{k,j}a_{kj} &= \text{not defined} \\
+\sum_k\sum_j a_{kj} &=  0 \\
+\sum_j\sum_k a_{kj} &= 0
+\end{align*}
+\end{example}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
 Let $A_1,A_2,...$ be sequence of events, define $N=\sum_{i=1}^{\infty}\mathbb{I}_{A_i}$. 
 
 \begin{equation}
@@ -484,35 +510,7 @@ The reason we were able to swap the Expectation and the sum is that it satisfies
 \end{equation}
 
 Which is the first Cantelli Lemma.
-
-\bigskip
-
-
-\underline{{\bf {Original Fubini Theorem:}}}  \\
-
-Let $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\nu)$ be two complete $\sigma$-finite measure spaces. Suppose f is integrable on $(X\times Y)$, then
-
-\begin{equation}
-\begin{aligned}
-(i)&\int_Yf(x,y)d\nu(y)\text{ is integrable on X}\\
-(ii)&\int_Xf(x,y)d\mu(y)\text{ is integrable on Y}\\
-(iii)& \int_X\int_Yf(x,y)d\nu d\mu=\int_{X\times Y}f(x,y)d (\mu \otimes \nu)=\int_Y\int_Xf(x,y)d\mu d\nu
-\end{aligned}
-\end{equation}
-
-\bigskip
-
-
-To apply Fubini, it requires that f is integrable on $X \times Y$
-
-\begin{equation}
-\begin{aligned}
-(i)&\int_Y\left(\int_X|f| d\mu \right)d\nu(y)<\infty\\
-(ii)&\int_X\left(\int_Y|f| d\nu \right)d\mu(y)<\infty\\
-(iii)& \int_{X\times Y}|f| d(\mu \otimes \nu) <\infty
-\end{aligned}
-\end{equation}
-
+\end{example}
 
 
 
